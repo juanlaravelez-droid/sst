@@ -1,0 +1,18 @@
+{
+  "name": "SAENA · SG-SST Fotovoltaica",
+  "short_name": "SAENA SST",
+  "description": "Gestión local de Seguridad y Salud en el Trabajo para sistemas fotovoltaicos",
+  "start_url": "./index.html#dashboard",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8f5f0",
+  "theme_color": "#1e2438",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

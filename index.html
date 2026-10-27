@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e2438">
+    <meta name="description" content="SAENA SG-SST: gestión local de Seguridad y Salud en el Trabajo para sistemas fotovoltaicos.">
+    <link rel="manifest" href="./manifest.webmanifest">
+    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/styles.css?v=12">
+    <title>SAENA | SG-SST</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Navegación principal">
+        <a class="brand" href="#dashboard" aria-label="SG-SST, ir al inicio">
+          <img src="./assets/saena-logo.png" alt="SAENA Energía">
+        </a>
+        <nav class="primary-nav">
+          <a href="#dashboard" data-route="dashboard"><span aria-hidden="true">⌂</span> Dashboard</a>
+          <a href="#matriz" data-route="matriz"><span aria-hidden="true">▦</span> Matriz IPEVR</a>
+          <a href="#estandares" data-route="estandares"><span aria-hidden="true">§</span> Estándares</a>
+          <a href="#inspecciones" data-route="inspecciones"><span aria-hidden="true">✓</span> Inspecciones</a>
+          <a href="#permisos" data-route="permisos"><span aria-hidden="true">↥</span> Permisos</a>
+          <a href="#ajustes" data-route="ajustes"><span aria-hidden="true">⚙</span> Ajustes</a>
+        </nav>
+        <p class="sidebar-note">Tus datos se guardan en este dispositivo.</p>
+      </aside>
+
+      <div class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Sistema de gestión</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+          <div class="connection-status"><span class="status-dot" aria-hidden="true"></span><span id="connection-label">Conectado</span></div>
+        </header>
+
+        <main id="main-content" tabindex="-1">
+          <section class="view" data-view="dashboard" aria-labelledby="dashboard-heading">
+            <div class="welcome-card">
+              <div>
+                <p class="eyebrow">Hito 1 · Local-first</p>
+                <h2 id="dashboard-heading">Bienvenido a SAENA SG-SST</h2>
+                <p>Gestiona la seguridad de las operaciones fotovoltaicas y conserva la información en este dispositivo.</p>
+                <a class="button button-primary" href="#matriz">Abrir matriz IPEVR</a>
+              </div>
+              <div class="welcome-art" aria-hidden="true">SST</div>
+            </div>
+            <div class="metrics-grid" aria-label="Resumen de la matriz">
+              <article class="metric-card"><span class="metric-icon blue" aria-hidden="true">▦</span><p>Peligros registrados</p><strong id="metric-total">0</strong></article>
+              <article class="metric-card"><span class="metric-icon red" aria-hidden="true">!</span><p>Riesgos nivel I</p><strong id="metric-level-one">0</strong></article>
+              <article class="metric-card"><span class="metric-icon amber" aria-hidden="true">↗</span><p>Riesgos por intervenir</p><strong id="metric-action">0</strong></article>
+            </div>
+            <section class="panel">
+              <div class="panel-heading"><div><p class="eyebrow">Inicio rápido</p><h2>Próximos módulos</h2></div></div>
+              <div class="module-preview">
+                <article><span aria-hidden="true">✓</span><div><h3>Inspecciones en campo</h3><p>Registra listas de chequeo, evidencia fotográfica comprimida y firma, incluso sin conexión.</p></div><span class="tag tag-green">Activo</span></article>
+                <article><span aria-hidden="true">↗</span><div><h3>Trabajo sin conexión</h3><p>Los registros de la matriz se guardan localmente y están disponibles sin internet.</p></div><span class="tag tag-green">Activo</span></article>
+              </div>
+            </section>
+          </section>
+
+          <section class="view" data-view="matriz" aria-labelledby="matrix-heading" hidden>
+            <div class="page-intro"><div><p class="eyebrow">Identificación de peligros</p><h2 id="matrix-heading">Matriz IPEVR</h2><p>Registra un peligro y consulta el nivel de riesgo de acuerdo con los criterios definidos para este MVP.</p></div></div>
+            <div class="matrix-layout">
+              <section class="panel form-panel" aria-labelledby="form-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Nuevo registro</p><h3 id="form-heading">Evaluar peligro</h3></div></div>
+                <form id="hazard-form">
+                  <input id="record-id" name="recordId" type="hidden">
+                  <label for="hazard-name">Peligro identificado</label>
+                  <input id="hazard-name" name="hazard" required maxlength="160" placeholder="Ej. Ruido por maquinaria">
+                  <div class="field-row">
+                    <div><label for="hazard-type">Clasificación</label><select id="hazard-type" name="hazardType" required>
+                      <option value="Físico">Físico</option><option value="Químico">Químico</option><option value="Biológico">Biológico</option><option value="Biomecánico">Biomecánico</option><option value="Psicosocial">Psicosocial</option><option value="Condiciones de seguridad">Condiciones de seguridad</option><option value="Fenómenos naturales">Fenómenos naturales</option>
+                    </select></div>
+                    <div><label for="hazard-site">Sede / lugar</label><input id="hazard-site" name="site" maxlength="120" placeholder="Ej. Bodega"></div>
+                  </div>
+                  <label for="hazard-activity">Actividad / proceso</label>
+                  <input id="hazard-activity" name="activity" maxlength="160" placeholder="Actividad asociada al peligro">
+                  <fieldset class="risk-fields">
+                    <legend>Valoración del riesgo</legend>
+                    <div class="field-row field-row-three">
+                      <div><label for="nd">ND · Deficiencia</label><select id="nd" name="nd"><option value="10">10 · Muy alto</option><option value="6">6 · Alto</option><option value="2">2 · Medio</option><option value="0">0 · Bajo / sin deficiencia</option></select></div>
+                      <div><label for="ne">NE · Exposición</label><select id="ne" name="ne"><option value="4">4 · Continua</option><option value="3" selected>3 · Frecuente</option><option value="2">2 · Ocasional</option><option value="1">1 · Esporádica</option></select></div>
+                      <div><label for="nc">NC · Consecuencia</label><select id="nc" name="nc"><option value="100">100 · Mortal / catastrófica</option><option value="60">60 · Muy grave</option><option value="25" selected>25 · Grave</option><option value="10">10 · Leve</option></select></div>
+                    </div>
+                    <div class="calculation" aria-live="polite">
+                      <div><span>Nivel de probabilidad (NP)</span><strong id="np-result">18 · Alto</strong></div>
+                      <div><span>Nivel de riesgo (NR)</span><strong id="nr-result">450</strong></div>
+                      <div class="risk-result" id="acceptability-result" data-level="II"><span>Aceptabilidad</span><strong id="acceptability-label">Nivel II · No aceptable o aceptable con control específico</strong></div>
+                    </div>
+                  </fieldset>
+                  <label for="controls">Controles existentes / propuestos</label>
+                  <textarea id="controls" name="controls" rows="3" maxlength="1000" placeholder="Eliminación, sustitución, ingeniería, administrativos o EPP"></textarea>
+                  <div class="form-actions"><button class="button button-primary" id="save-button" type="submit">Guardar peligro</button><button class="button button-secondary" id="cancel-edit" type="button" hidden>Cancelar edición</button></div>
+                  <p class="form-message" id="form-message" role="status"></p>
+                </form>
+              </section>
+              <section class="panel records-panel" aria-labelledby="records-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Almacenamiento local</p><h3 id="records-heading">Peligros registrados</h3></div><span class="count-badge" id="record-count">0</span></div>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>Peligro</th><th>Clasificación / lugar</th><th>ND · NE · NC</th><th>NP</th><th>NR / nivel</th><th>Acciones</th></tr></thead>
+                    <tbody id="records-body"><tr><td class="empty-state" colspan="6">Aún no hay peligros registrados.</td></tr></tbody>
+                  </table>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <section class="view" data-view="inspecciones" aria-labelledby="inspections-heading" hidden>
+            <div class="page-intro"><div><p class="eyebrow">Registro de campo</p><h2 id="inspections-heading">Inspecciones</h2><p>Completa una lista de chequeo, agrega evidencias y guarda el registro localmente con la firma de quien inspecciona.</p></div></div>
+            <div class="inspection-layout">
+              <section class="panel inspection-form-panel" aria-labelledby="inspection-form-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Nuevo registro</p><h3 id="inspection-form-heading">Registrar inspección</h3></div></div>
+                <form id="inspection-form">
+                  <label for="inspection-title">Nombre de la inspección</label>
+                  <input id="inspection-title" name="title" required maxlength="120" placeholder="Ej. Inspección mensual de extintores">
+                  <div class="field-row">
+                    <div><label for="inspection-type">Tipo de inspección</label><select id="inspection-type" name="type">
+                      <option value="epp">Elementos de protección personal</option>
+                      <option value="extintores">Extintores</option>
+                      <option value="orden-aseo">Orden y aseo</option>
+                      <option value="fotovoltaica">Sistemas fotovoltaicos</option>
+                      <option value="alturas">Trabajo en alturas</option>
+                    </select></div>
+                    <div><label for="inspection-date">Fecha</label><input id="inspection-date" name="date" type="date" required></div>
+                  </div>
+                  <div class="field-row">
+                    <div><label for="inspection-site">Sede / lugar</label><input id="inspection-site" name="site" required maxlength="120" placeholder="Ej. Planta · área de mantenimiento"></div>
+                    <div><label for="inspection-inspector">Persona que inspecciona</label><input id="inspection-inspector" name="inspector" required maxlength="120" autocomplete="name"></div>
+                  </div>
+                  <fieldset class="checklist-fieldset">
+                    <legend>Lista de chequeo</legend>
+                    <p class="field-hint">Marca cada punto. “Requiere acción” identifica una condición que debe revisarse o corregirse.</p>
+                    <div id="inspection-checklist" class="checklist-list"></div>
+                  </fieldset>
+                  <label for="inspection-findings">Observaciones generales</label>
+                  <textarea id="inspection-findings" name="findings" rows="3" maxlength="1500" placeholder="Describe hallazgos, acciones sugeridas o seguimiento requerido"></textarea>
+                  <fieldset class="evidence-fieldset">
+                    <legend>Evidencias fotográficas</legend>
+                    <p class="field-hint">Hasta 3 fotografías, redimensionadas a máximo 1024 × 768 px antes de guardarlas.</p>
+                    <label class="button button-secondary file-button" for="inspection-photos">Tomar o seleccionar fotos</label>
+                    <input id="inspection-photos" type="file" accept="image/*" capture="environment" multiple hidden>
+                    <div id="inspection-photo-list" class="photo-list" aria-live="polite"></div>
+                    <p id="photo-message" class="form-message" role="status"></p>
+                  </fieldset>
+                  <fieldset class="signature-fieldset">
+                    <legend>Firma de quien inspecciona <span class="required-mark" aria-hidden="true">*</span></legend>
+                    <p class="field-hint">Firma con el dedo, un lápiz digital o el ratón. La firma se guarda como imagen PNG.</p>
+                    <canvas id="inspection-signature" class="signature-canvas" width="960" height="260" role="img" aria-label="Área para dibujar la firma de quien inspecciona">Tu navegador no admite el área de firma.</canvas>
+                    <div class="signature-actions">
+                      <button id="clear-signature" class="button button-secondary button-small" type="button">Limpiar firma</button>
+                      <button id="capture-location" class="button button-secondary button-small" type="button">Agregar ubicación GPS (opcional)</button>
+                      <span id="location-status" class="field-hint" aria-live="polite">La ubicación no se ha agregado.</span>
+                    </div>
+                    <p id="signature-message" class="form-message" role="status"></p>
+                  </fieldset>
+                  <div class="notice notice-compact"><strong>Alcance:</strong> estas listas son ayudas operativas y no sustituyen la evaluación de riesgos, procedimientos eléctricos, permisos de trabajo, competencias exigibles ni las obligaciones aplicables de la Resolución 4272 de 2021 para trabajo en alturas. El trazo y su hash de integridad no verifican la identidad de la persona ni reemplazan una firma electrónica o digital certificada.</div>
+                  <div class="form-actions"><button class="button button-primary" id="save-inspection" type="submit">Guardar inspección</button></div>
+                  <p id="inspection-message" class="form-message" role="status"></p>
+                </form>
+              </section>
+              <section class="panel inspection-records-panel" aria-labelledby="inspection-records-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Almacenamiento local</p><h3 id="inspection-records-heading">Inspecciones guardadas</h3></div><span class="count-badge" id="inspection-count">0</span></div>
+                <div id="inspection-records" class="inspection-records" aria-live="polite"><p class="empty-state">Aún no hay inspecciones registradas.</p></div>
+              </section>
+            </div>
+          </section>
+
+          <section class="view" data-view="permisos" aria-labelledby="permit-heading" hidden>
+            <div class="page-intro"><div><p class="eyebrow">Resolución 4272 de 2021 · Artículo 15</p><h2 id="permit-heading">Permiso semanal de trabajo en alturas</h2><p>Prepara un borrador para un periodo de siete días consecutivos, con una lista de revalidación para cada jornada programada. Para SAENA, documenta también la interacción con el sistema fotovoltaico y los riesgos eléctricos de la tarea.</p></div></div>
+            <div class="notice permit-warning"><strong>No autoriza el inicio del trabajo.</strong> Este módulo genera borradores para revisión. El permiso debe ser revisado, firmado y autorizado mediante el procedimiento vigente de SAENA antes de iniciar. Las condiciones deben verificarse y revalidarse cada jornada y cuando haya cambios; la aplicación no verifica identidades, afiliaciones, aptitud médica, certificados ni condiciones reales del sitio.</div>
+            <div class="inspection-layout permit-layout">
+              <section class="panel inspection-form-panel" aria-labelledby="permit-form-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Nuevo borrador</p><h3 id="permit-form-heading">Datos del trabajo</h3></div></div>
+                <form id="permit-form">
+                  <input id="permit-id" name="permitId" type="hidden">
+                  <label for="permit-site">Lugar / proyecto <span class="required-mark" aria-hidden="true">*</span></label>
+                  <input id="permit-site" name="site" required maxlength="160" placeholder="Ej. Cubierta · proyecto fotovoltaico · municipio">
+                  <div class="field-row">
+                    <div><label for="permit-type">Tipo de trabajo</label><input id="permit-type" name="workType" required maxlength="160" placeholder="Ej. Montaje de módulos"></div>
+                    <div><label for="permit-height">Altura aproximada (m)</label><input id="permit-height" name="heightMeters" type="number" min="0.1" step="0.1" required inputmode="decimal"></div>
+                  </div>
+                  <fieldset class="permit-fieldset">
+                    <legend>Vigencia semanal</legend>
+                    <p class="field-hint">El periodo comprende siete días calendario consecutivos. La fecha final se calcula desde la fecha inicial. Revalida el permiso antes de cada jornada programada y ante cualquier cambio.</p>
+                    <div class="field-row field-row-three">
+                      <div><label for="permit-start-date">Fecha inicial</label><input id="permit-start-date" name="startDate" type="date" required></div>
+                      <div><label for="permit-start-time">Hora inicial</label><input id="permit-start-time" name="startTime" type="time" required></div>
+                      <div><label for="permit-end-date">Fecha final (7.º día)</label><input id="permit-end-date" name="endDate" type="date" readonly required></div>
+                    </div>
+                    <div class="field-row"><div><label for="permit-end-time">Hora de terminación</label><input id="permit-end-time" name="endTime" type="time" required></div></div>
+                    <div id="permit-weekly-schedule" class="permit-weekly-schedule"></div>
+                  </fieldset>
+                  <fieldset class="permit-fieldset">
+                    <legend>Trabajadores autorizados para la tarea</legend>
+                    <p class="field-hint">Registra cada persona que ejecutará la labor y captura su firma en el recuadro. Los estados son declaraciones del responsable; la aplicación no valida los soportes ni la identidad de quien firma.</p>
+                    <div id="permit-workers" class="permit-workers"></div>
+                    <button id="add-permit-worker" class="button button-secondary button-small" type="button">Agregar trabajador</button>
+                  </fieldset>
+                  <label for="permit-task">Descripción y procedimiento de la tarea</label>
+                  <textarea id="permit-task" name="taskDescription" rows="3" required maxlength="2000" placeholder="Secuencia de trabajo y referencia al procedimiento seguro aprobado y divulgado"></textarea>
+                  <div class="field-row">
+                    <fieldset class="permit-fieldset permit-selection-group">
+                      <legend>Sistema de prevención contra caídas</legend>
+                      <p class="field-hint">Marca al menos una opción aplicable según el análisis de la tarea.</p>
+                      <div id="permit-fall-prevention-options" class="permit-option-list"></div>
+                      <label for="permit-fall-prevention-other">Otro control (especificar)</label>
+                      <input id="permit-fall-prevention-other" name="fallPreventionOther" maxlength="1000" placeholder="Escribe el control adicional">
+                    </fieldset>
+                    <fieldset class="permit-fieldset permit-selection-group">
+                      <legend>Equipos y sistema de acceso</legend>
+                      <p class="field-hint">Marca al menos un medio de acceso previsto para la labor.</p>
+                      <div id="permit-access-equipment-options" class="permit-option-list"></div>
+                      <label for="permit-access-equipment-other">Otro equipo o acceso (especificar)</label>
+                      <input id="permit-access-equipment-other" name="accessEquipmentOther" maxlength="1000" placeholder="Escribe el equipo o acceso adicional">
+                    </fieldset>
+                  </div>
+                  <div class="field-row">
+                    <fieldset class="permit-fieldset permit-selection-group">
+                      <legend>Restricción, posicionamiento o detención de caídas</legend>
+                      <p class="field-hint">Marca al menos una opción aplicable según el análisis de la tarea.</p>
+                      <div id="permit-fall-system-options" class="permit-option-list"></div>
+                      <label for="permit-fall-system-other">Otro sistema o componente (especificar)</label>
+                      <input id="permit-fall-system-other" name="fallSystemOther" maxlength="1000" placeholder="Escribe el sistema o componente adicional">
+                    </fieldset>
+                    <fieldset class="permit-fieldset permit-selection-group">
+                      <legend>Elementos de protección personal seleccionados</legend>
+                      <p class="field-hint">Marca al menos un EPP seleccionado por el empleador según los riesgos de la tarea.</p>
+                      <div id="permit-ppe-options" class="permit-option-list"></div>
+                      <label for="permit-ppe-other">Otro EPP (especificar)</label>
+                      <input id="permit-ppe-other" name="ppeOther" maxlength="1000" placeholder="Escribe el EPP adicional">
+                    </fieldset>
+                  </div>
+                  <label for="permit-tools">Herramientas y materiales</label>
+                  <textarea id="permit-tools" name="tools" rows="2" required maxlength="1000" placeholder="Herramientas y materiales que se utilizarán"></textarea>
+                  <fieldset class="permit-fieldset">
+                    <legend>Lista de chequeo general previa al trabajo</legend>
+                    <p class="field-hint">Verifica el procedimiento, el área, los equipos, los riesgos eléctricos y el rescate antes de iniciar. Los puntos pendientes requieren revisión.</p>
+                    <div id="permit-checklist" class="permit-checklist"></div>
+                  </fieldset>
+                  <div class="field-row">
+                    <div><label for="permit-authorizer">Persona que autoriza · nombre y apellido</label><input id="permit-authorizer" name="authorizer" required maxlength="160"></div>
+                    <div><label for="permit-authorizer-id">Documento de quien autoriza</label><input id="permit-authorizer-id" name="authorizerId" required maxlength="60"></div>
+                  </div>
+                  <div class="field-row">
+                    <div><label for="permit-emergency">Responsable de activar emergencias · nombre y apellido</label><input id="permit-emergency" name="emergencyLead" required maxlength="160"></div>
+                    <div><label for="permit-emergency-id">Documento del responsable</label><input id="permit-emergency-id" name="emergencyLeadId" required maxlength="60"></div>
+                  </div>
+                  <fieldset class="permit-fieldset">
+                    <legend>Coordinador de trabajo en alturas</legend>
+                    <label class="checkbox-label" for="permit-coordinator-same"><input id="permit-coordinator-same" name="coordinatorIsAuthorizer" type="checkbox" checked> Es la misma persona que autoriza</label>
+                    <div id="permit-coordinator-fields" class="field-row" hidden>
+                      <div><label for="permit-coordinator">Coordinador · nombre y apellido</label><input id="permit-coordinator" name="coordinator" maxlength="160"></div>
+                      <div><label for="permit-coordinator-id">Documento del coordinador</label><input id="permit-coordinator-id" name="coordinatorId" maxlength="60"></div>
+                    </div>
+                  </fieldset>
+                  <fieldset class="permit-fieldset">
+                    <legend>Ayudante de seguridad</legend>
+                    <label class="checkbox-label" for="permit-helper-assigned"><input id="permit-helper-assigned" name="helperAssigned" type="checkbox"> Se designa ayudante como medida de prevención</label>
+                    <div id="permit-helper-fields" class="field-row" hidden>
+                      <div><label for="permit-helper">Ayudante · nombre y apellido</label><input id="permit-helper" name="helperName" maxlength="160"></div>
+                      <div><label for="permit-helper-id">Documento del ayudante</label><input id="permit-helper-id" name="helperId" maxlength="60"></div>
+                    </div>
+                  </fieldset>
+                  <label for="permit-observations">Observaciones</label>
+                  <textarea id="permit-observations" name="observations" rows="3" maxlength="2000" placeholder="Condiciones adicionales, distancias a equipos eléctricos energizados, aislamiento, clima y acuerdos de coordinación"></textarea>
+                  <div class="notice notice-compact"><strong>Firmas:</strong> las firmas dibujadas por los trabajadores se incluyen en el formato; quien autoriza, el responsable de emergencias y, cuando corresponda, el coordinador deben firmar en los espacios impresos. Las firmas dibujadas no verifican la identidad ni sustituyen los mecanismos formales de firma que use SAENA.</div>
+                  <div class="form-actions"><button class="button button-primary" id="save-permit" type="submit">Guardar borrador</button></div>
+                  <p id="permit-message" class="form-message" role="status"></p>
+                </form>
+              </section>
+              <section class="panel inspection-records-panel" aria-labelledby="permit-records-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Almacenamiento local</p><h3 id="permit-records-heading">Borradores guardados</h3></div><span class="count-badge" id="permit-count">0</span></div>
+                <div id="permit-records" class="inspection-records" aria-live="polite"><p class="empty-state">Aún no hay borradores de permisos.</p></div>
+              </section>
+            </div>
+            <section id="permit-print-preview" class="permit-print-preview" hidden aria-label="Formato imprimible del borrador"></section>
+          </section>
+
+          <section class="view" data-view="estandares" aria-labelledby="res0312-heading" hidden>
+            <div class="page-intro"><div><p class="eyebrow">Resolución 0312 de 2019</p><h2 id="res0312-heading">Autoevaluación de estándares mínimos</h2><p>Identifica el perfil aplicable de SAENA antes de abrir cualquier cuestionario.</p></div></div>
+            <div class="inspection-layout">
+              <section class="panel form-panel" aria-labelledby="res0312-profile-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Filtro obligatorio</p><h3 id="res0312-profile-heading">Perfil de la empresa</h3></div></div>
+                <form id="res0312-profile-form">
+                  <label for="res0312-workers">Número de trabajadores</label>
+                  <input id="res0312-workers" name="workers" type="number" min="1" step="1" required inputmode="numeric">
+                  <label for="res0312-risk">Clase de riesgo ARL</label>
+                  <select id="res0312-risk" name="riskClass" required>
+                    <option value="1">Clase I</option><option value="2">Clase II</option><option value="3">Clase III</option><option value="4">Clase IV</option><option value="5">Clase V</option>
+                  </select>
+                  <div class="form-actions"><button class="button button-primary" type="submit">Guardar perfil y determinar grupo</button></div>
+                  <p id="res0312-profile-message" class="form-message" role="status"></p>
+                </form>
+              </section>
+              <section class="panel" aria-labelledby="res0312-result-heading">
+                <div class="panel-heading"><div><p class="eyebrow">Resultado del filtro</p><h3 id="res0312-result-heading">Grupo aplicable</h3></div></div>
+                <div id="res0312-profile-result" class="profile-result" aria-live="polite">
+                  <p id="res0312-profile-summary" class="empty-state">Registra el perfil de la empresa para determinar el grupo.</p>
+                </div>
+              </section>
+            </div>
+            <section class="panel" aria-labelledby="res0312-catalog-heading">
+              <div class="panel-heading"><div><p class="eyebrow">Cuestionario y calificación</p><h3 id="res0312-catalog-heading">Catálogo normativo pendiente de verificación</h3></div><span class="tag">Bloqueado</span></div>
+              <div class="notice"><strong>El puntaje está deshabilitado.</strong> Falta cotejar con el anexo oficial los códigos exactos de los 7 y 21 estándares y los pesos individuales del grupo de 60. No se mostrarán resultados ni planes de acción calculados con datos incompletos.</div>
+            </section>
+          </section>
+
+          <section class="view" data-view="ajustes" aria-labelledby="settings-heading" hidden>
+            <section class="panel settings-panel">
+              <div class="panel-heading"><div><p class="eyebrow">Datos de este dispositivo</p><h2 id="settings-heading">Ajustes y copias de seguridad</h2></div></div>
+              <p>Los registros de la matriz, las inspecciones, los borradores de permisos y el perfil empresarial se conservan en IndexedDB en este navegador. Exporta una copia JSON para transferirla o guardarla; el backup incluye el perfil, los permisos, las fotos y las firmas, y la importación agrega o actualiza registros sin borrar los existentes.</p>
+              <div class="backup-actions"><button class="button button-primary" id="export-backup" type="button">Exportar backup JSON</button><label class="button button-secondary file-button" for="import-backup">Importar backup JSON</label><input id="import-backup" type="file" accept="application/json,.json" hidden></div>
+              <p id="backup-message" class="form-message" role="status"></p>
+              <div class="notice"><strong>Privacidad:</strong> los datos y las copias de seguridad pueden contener información sensible. Guárdalos en un lugar autorizado. No hay sincronización con otros dispositivos en este hito.</div>
+              <div class="settings-divider"></div>
+              <h3>Disponibilidad offline</h3><p id="pwa-status">La aplicación puede almacenar su shell para uso offline cuando se sirve desde localhost o HTTPS.</p>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
